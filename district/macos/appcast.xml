@@ -5,5 +5,14 @@
     <link>https://updates.distronode.com/district/macos/appcast.xml</link>
     <description>Updates to the direct download of District AI for macOS. Written by the release workflow of distronode-corporation/district-macos; do not edit by hand.</description>
     <language>en</language>
+    <item>
+      <title>Version 1.0</title>
+      <pubDate>Sun, 04 Oct 2026 20:13:23 +0000</pubDate>
+      <sparkle:version>20024</sparkle:version>
+      <sparkle:shortVersionString>1.0</sparkle:shortVersionString>
+      <sparkle:minimumSystemVersion>14.0</sparkle:minimumSystemVersion>
+      <sparkle:fullReleaseNotesLink>https://github.com/distronode-corporation/district-macos/releases/tag/v1.0</sparkle:fullReleaseNotesLink>
+      <enclosure url="https://github.com/distronode-corporation/district-macos/releases/download/v1.0/DistrictAI-1.0-20024.dmg" length="32389113" type="application/octet-stream" sparkle:edSignature="Z3WG++DpDBpJFzBPyaFty4bD+QAJOOw3Atz9vWgXb4q59gMX+5D7pFXnmpg+sDs5qefO6SWSqeUefGJScOwHAQ==" />
+    </item>
   </channel>
 </rss>
