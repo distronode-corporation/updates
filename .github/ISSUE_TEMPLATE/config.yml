@@ -1,0 +1,14 @@
+# No issues here: the feeds are written by the apps' release workflows, so a problem
+# with an update is a problem in that app. These links say where each kind of report
+# goes (see .github/SUPPORT.md).
+blank_issues_enabled: false
+contact_links:
+  - name: README
+    url: https://github.com/distronode-corporation/updates#readme
+    about: What the feeds are and how they are written.
+  - name: A bug in District AI for macOS or its updates
+    url: https://github.com/distronode-corporation/district-macos/issues
+    about: Report it in the app's own repository.
+  - name: Security report
+    url: https://github.com/distronode-corporation/updates/security/advisories/new
+    about: Please do not open a public issue for a vulnerability. Report it privately here (see SECURITY.md).

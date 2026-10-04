@@ -1,0 +1,9 @@
+<?xml version='1.0' encoding='utf-8'?>
+<rss xmlns:sparkle="http://www.andymatuschak.org/xml-namespaces/sparkle" version="2.0">
+  <channel>
+    <title>District AI for macOS</title>
+    <link>https://updates.distronode.com/district/macos/appcast.xml</link>
+    <description>Updates to the direct download of District AI for macOS. Written by the release workflow of distronode-corporation/district-macos; do not edit by hand.</description>
+    <language>en</language>
+  </channel>
+</rss>

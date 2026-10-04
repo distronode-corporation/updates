@@ -1,0 +1,7 @@
+# Every path is owned, so a pull request always requests a review.
+#
+# ⚠️ CODEOWNERS only has teeth behind a branch protection rule with "Require review
+# from Code Owners" turned on; on its own it is a request, not a gate. A handle here
+# without write access is silently ignored by GitHub, so check membership before
+# adding one.
+* @distronode-com

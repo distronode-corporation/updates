@@ -1,0 +1,120 @@
+name: Check
+
+# Every push to main (most of them the release workflows' feed updates) and every pull
+# request:
+#
+# - `feeds`: every appcast is well-formed and every item carries what Sparkle needs,
+#   with its download on a GitHub Release; CNAME and .nojekyll are in place.
+# - `hygiene`: no em or en dashes in any tracked file.
+# - `zizmor`: static analysis of these workflows.
+# - `gitleaks`: secrets anywhere in the history, not just the tip.
+#
+# ⚠️ NOT REQUIRED CHECKS. The release workflow pushes feed updates straight to main with
+# a deploy key, and a ruleset cannot exempt a deploy key from required checks, so these
+# report after the push rather than gate it. The release workflow runs the same feed
+# checks itself before it pushes.
+on:
+  push:
+    branches: [main]
+  pull_request:
+  workflow_dispatch:
+
+# Least privilege at the top level, so a job added later starts read-only. Nothing here
+# writes.
+permissions:
+  contents: read
+
+# Per ref and per trigger. Only pull requests cancel in flight: a superseded pull request
+# run is waste, a superseded main run is history.
+concurrency:
+  group: check-${{ github.ref }}-${{ github.event_name }}
+  cancel-in-progress: ${{ github.event_name == 'pull_request' }}
+
+jobs:
+  feeds:
+    name: feeds
+    runs-on: ubuntu-24.04
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+
+      # Before the scan, so a rule that has stopped matching fails here instead of letting
+      # the scan pass quietly.
+      - name: The feed rules still catch what they claim to
+        run: python3 .github/scripts/check-feeds.py --self-test
+
+      - name: Feeds, CNAME and .nojekyll
+        run: python3 .github/scripts/check-feeds.py
+
+  hygiene:
+    name: hygiene
+    runs-on: ubuntu-24.04
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+
+      # The pattern is the UTF-8 bytes of U+2013 and U+2014, written as escapes so this
+      # file passes its own check, and first run against a planted control, as in
+      # homebrew-tap's audit.yml.
+      - name: No em or en dashes
+        run: |
+          set -euo pipefail
+          export LC_ALL=C
+          pattern='\xe2\x80[\x93\x94]'
+          printf 'en \xe2\x80\x93 and em \xe2\x80\x94\n' > "$RUNNER_TEMP/dash-control.txt"
+          if ! (cd "$RUNNER_TEMP" && git grep --no-index -qP "$pattern" -- dash-control.txt); then
+            echo "::error::The dash pattern no longer matches its planted control."
+            exit 1
+          fi
+          set +e
+          git grep -nIP "$pattern"
+          status=$?
+          set -e
+          case "$status" in
+            0) echo "::error::Em or en dashes above. Use commas, periods or parentheses."; exit 1 ;;
+            1) echo "No em or en dashes in any tracked file." ;;
+            *) echo "::error::git grep failed with status $status."; exit "$status" ;;
+          esac
+
+  # Annotations mode: zizmor FAILS the job on a finding instead of uploading SARIF.
+  zizmor:
+    name: zizmor
+    runs-on: ubuntu-24.04
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+
+      - uses: zizmorcore/zizmor-action@cc914d7f3750a2d13d75c7f184a1060aa0e9d482 # v0.6.4
+        with:
+          version: 1.30.1
+          advanced-security: false
+          annotations: true
+
+  gitleaks:
+    name: gitleaks
+    runs-on: ubuntu-24.04
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+          fetch-depth: 0 # the whole history, not just the tip
+
+      # gitleaks/gitleaks-action needs a paid licence for an organization repository. The
+      # CLI is free (MIT); `go install` of a tagged module is checked against the Go
+      # checksum database.
+      - uses: actions/setup-go@b7ad1dad31e06c5925ef5d2fc7ad053ef454303e # v7.0.0
+        with:
+          go-version: "1.25"
+          cache: false
+
+      - name: gitleaks git
+        run: |
+          go install github.com/zricethezav/gitleaks/v8@v8.30.1
+          "$(go env GOPATH)/bin/gitleaks" git --no-banner --redact -v --log-opts="HEAD" .

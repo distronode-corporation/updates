@@ -1,0 +1,16 @@
+version: 2
+
+# Every `uses:` in .github/workflows is pinned to a commit SHA with a `# vX.Y.Z`
+# comment; this entry turns each pin into a pull request when a new version appears,
+# rewriting both the SHA and the comment. `cooldown` holds a version update back until
+# the release is a week old. It does not delay security updates.
+updates:
+  - package-ecosystem: github-actions
+    directory: /
+    schedule:
+      interval: weekly
+    cooldown:
+      default-days: 7
+    groups:
+      actions-minor:
+        update-types: [minor, patch]
