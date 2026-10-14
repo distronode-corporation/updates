@@ -10,7 +10,7 @@ appcast: the list of releases an installed copy checks for updates.
 |---|---|---|
 | District AI for macOS (direct download) | <https://updates.distronode.com/district/macos/appcast.xml> | [district-macos Releases](https://github.com/distronode-corporation/district-macos/releases) |
 
-The Mac App Store build of District AI does not use this feed; the App Store updates it.
+A Mac App Store build, once there is one, will not use this feed; the App Store will update it.
 
 ## How a feed is written
 
