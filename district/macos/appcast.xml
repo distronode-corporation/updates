@@ -6,6 +6,15 @@
     <description>Updates to the direct download of District AI for macOS. Written by the release workflow of distronode-corporation/district-macos; do not edit by hand.</description>
     <language>en</language>
     <item>
+      <title>Version 3.0.0</title>
+      <pubDate>Thu, 15 Oct 2026 01:30:12 +0000</pubDate>
+      <sparkle:version>20056</sparkle:version>
+      <sparkle:shortVersionString>3.0.0</sparkle:shortVersionString>
+      <sparkle:minimumSystemVersion>14.0</sparkle:minimumSystemVersion>
+      <sparkle:fullReleaseNotesLink>https://github.com/distronode-corporation/district-macos/releases/tag/v3.0.0</sparkle:fullReleaseNotesLink>
+      <enclosure url="https://github.com/distronode-corporation/district-macos/releases/download/v3.0.0/DistrictAI-3.0.0-20056.dmg" length="34274142" type="application/octet-stream" sparkle:edSignature="Oaj2n3QUax9sPoBczzFsuctKP+Upme2Nwq3BUhn1oPruJFSKWwgUZJNci7fd6ntMhxwJMrJEdgoDhJk7gOGxDg==" />
+    </item>
+    <item>
       <title>Version 2.0.1</title>
       <pubDate>Tue, 13 Oct 2026 03:17:06 +0000</pubDate>
       <sparkle:version>20042</sparkle:version>
