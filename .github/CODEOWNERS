@@ -4,4 +4,6 @@
 # from Code Owners" turned on; on its own it is a request, not a gate. A handle here
 # without write access is silently ignored by GitHub, so check membership before
 # adding one.
-* @distronode-com
+# @seandean approves every change: the account that writes a pull request (usually
+# @distronode-com) can never approve it, so the owner must be a different person.
+* @seandean
