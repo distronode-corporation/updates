@@ -1,16 +1,22 @@
-[![OpenSSF Scorecard](https://api.scorecard.dev/projects/github.com/distronode-corporation/updates/badge)](https://scorecard.dev/viewer/?uri=github.com/distronode-corporation/updates)
+<picture>
+  <source media="(prefers-color-scheme: dark)" srcset=".github/assets/distronode-logo-dark.png">
+  <source media="(prefers-color-scheme: light)" srcset=".github/assets/distronode-logo-light.png">
+  <img alt="Distronode" src=".github/assets/distronode-logo-light.png" width="220">
+</picture>
 
 # Distronode update feeds
 
-The update feeds of Distronode's desktop apps, served by GitHub Pages at
-<https://updates.distronode.com>. Each feed is a [Sparkle](https://sparkle-project.org)
+[![OpenSSF Scorecard](https://api.scorecard.dev/projects/github.com/distronode-corporation/updates/badge)](https://scorecard.dev/viewer/?uri=github.com/distronode-corporation/updates)
+
+The update feeds of Distronode's desktop apps, served by GitHub Pages from
+`updates.distronode.com`, which serves the feeds and nothing at its root. Each feed is a [Sparkle](https://sparkle-project.org)
 appcast: the list of releases an installed copy checks for updates.
 
 | App | Feed | Releases |
 |---|---|---|
-| District AI for macOS (direct download) | <https://updates.distronode.com/district/macos/appcast.xml> | [district-macos Releases](https://github.com/distronode-corporation/district-macos/releases) |
+| District AI for Mac (direct download) | <https://updates.distronode.com/district/macos/appcast.xml> | [district-macos Releases](https://github.com/distronode-corporation/district-macos/releases) |
 
-A Mac App Store build, once there is one, will not use this feed; the App Store will update it.
+The Mac App Store build does not use this feed; the App Store updates it.
 
 ## How a feed is written
 
@@ -34,7 +40,7 @@ gh attestation verify DistrictAI-<version>-<build>.dmg --repo distronode-corpora
 ```
 CNAME                      updates.distronode.com, the Pages custom domain
 .nojekyll                  serve the files as they are, without a Jekyll build
-district/macos/appcast.xml District AI for macOS
+district/macos/appcast.xml District AI for Mac
 ```
 
 ## Contributing, security and conduct
@@ -43,7 +49,7 @@ district/macos/appcast.xml District AI for macOS
 - [CODE_OF_CONDUCT.md](CODE_OF_CONDUCT.md).
 - [SUPPORT](.github/SUPPORT.md): where questions, bugs and account problems go.
 
-Bugs in an app's updates belong to that app's repository, for District AI for macOS
+Bugs in an app's updates belong to that app's repository, for District AI for Mac
 [district-macos](https://github.com/distronode-corporation/district-macos/issues).
 Questions about a District AI account, number or bill go to
 [District AI support](https://www.distronode.com/support).
