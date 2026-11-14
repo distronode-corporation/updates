@@ -5,8 +5,9 @@ name: Scorecard
 # Results go to code scanning as SARIF and are published to the public Scorecard API.
 # Same shape as district-macos and district-ios.
 #
-# ⛔ SKIPPED WHILE THE REPOSITORY IS PRIVATE. Publishing needs a public repository, and
-# code scanning is not available to a private one on the free plan.
+# The `!github.event.repository.private` guard matters only if the repository is ever
+# private again: publishing needs a public repository, and code scanning is not available
+# to a private one on the free plan.
 #
 # Not on pull requests: scorecard-action documents that trigger as experimental, and
 # publishing needs `id-token: write`, which means nothing on a PR.
