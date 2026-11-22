@@ -9,7 +9,8 @@ plan is about keeping that path safe and checked.
 ## Planned
 
 - Keep `check.yml` passing on every push and pull request: every feed well-formed with
-  the fields Sparkle needs and its download on a GitHub Release, `CNAME` and
+  the fields Sparkle needs and its download URL in the form of a GitHub Release asset (the
+  check reads the URL's form; it does not fetch the download), `CNAME` and
   `.nojekyll` in place, no em or en dashes, zizmor and gitleaks.
 - Add a feed when another Distronode desktop app ships a direct download that updates
   with Sparkle, written by that app's release workflow the same way.
